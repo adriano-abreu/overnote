@@ -1,8 +1,8 @@
-"use client";
+'use client'
 
-import { ChevronsUpDown, LogOut } from "lucide-react";
+import { ChevronsUpDown, LogOut } from 'lucide-react'
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,51 +10,39 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu'
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar";
-import { useRouter } from "next/navigation";
-import { signOut } from "next-auth/react";
+} from '@/components/ui/sidebar'
+import { useRouter } from 'next/navigation'
+import { signOut } from 'next-auth/react'
+import { getAvatarFallback } from '@/lib/get-avatar-fallback'
 
 type Props = {
   user: {
-    email: string;
-    name?: string;
-    avatar?: string;
-  };
-};
+    email: string
+    name?: string
+    avatar?: string
+  }
+}
 
 export function NavUser({ user }: Props) {
-  const router = useRouter();
-  const { isMobile } = useSidebar();
+  const router = useRouter()
+  const { isMobile } = useSidebar()
 
-  const name = user.name ?? user.email;
-  const email = user.email;
+  const name = user.name ?? user.email
+  const email = user.email
 
   const handleLogout = async () => {
     await signOut({
       redirect: false,
-    });
-    router.push("/login");
-  };
-
-  const getAvatarFallback = (name: string) => {
-    const splittedName = name.split(" ");
-
-    if (splittedName.length === 1) {
-      return splittedName[0].charAt(0);
-    }
-
-    const firstLetter = splittedName[0].charAt(0);
-    const lastLetter = splittedName[splittedName.length - 1].charAt(0);
-
-    return `${firstLetter}${lastLetter}`;
-  };
-  const avatarFallback = getAvatarFallback(name);
+    })
+    router.push('/login')
+  }
+  const avatarFallback = getAvatarFallback(name)
 
   return (
     <SidebarMenu>
@@ -80,7 +68,7 @@ export function NavUser({ user }: Props) {
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-            side={isMobile ? "bottom" : "right"}
+            side={isMobile ? 'bottom' : 'right'}
             align="end"
             sideOffset={4}
           >
@@ -109,5 +97,5 @@ export function NavUser({ user }: Props) {
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
-  );
+  )
 }

@@ -1,26 +1,29 @@
-import * as React from "react";
+import * as React from 'react'
 
-import { auth } from "@/lib/auth";
-import { NavUser } from "@/components/nav-user";
+import { auth } from '@/lib/auth'
+import { NavUser } from '@/components/nav-user'
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarRail,
-} from "@/components/ui/sidebar";
+} from '@/components/ui/sidebar'
+import { NavLink } from './nav-link'
 
 export async function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
-  const session = await auth();
+  const session = await auth()
 
   const user = {
-    name: session?.user?.name ?? "",
-    email: session?.user?.email ?? "",
-    avatar: session?.user?.image ?? "",
-  };
+    name: session?.user?.name ?? '',
+    email: session?.user?.email ?? '',
+    avatar: session?.user?.image ?? '',
+  }
 
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarContent>{/* TODO */}</SidebarContent>
+      <SidebarContent>
+        <NavLink />
+      </SidebarContent>
 
       <SidebarFooter>
         <NavUser user={user} />
@@ -28,5 +31,5 @@ export async function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 
       <SidebarRail />
     </Sidebar>
-  );
+  )
 }

@@ -1,83 +1,83 @@
-"use client";
+'use client'
 
-import * as React from "react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import * as React from 'react'
+import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useState } from "react";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { useState } from 'react'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 export function SignupForm({
   className,
   ...props
-}: React.ComponentPropsWithoutRef<"div">) {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+}: React.ComponentPropsWithoutRef<'div'>) {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setIsLoading(true);
-    setError(null);
+    event.preventDefault()
+    setIsLoading(true)
+    setError(null)
 
-    const formData = new FormData(event.currentTarget);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const name = formData.get("name") as string;
+    const formData = new FormData(event.currentTarget)
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+    const name = formData.get('name') as string
 
     try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email,
           password,
           name,
         }),
-      });
+      })
 
-      const data = await response.json();
+      const data = await response.json()
 
       if (!response.ok) {
-        setError(data.error || "Something went wrong");
-        return;
+        setError(data.error || 'Something went wrong')
+        return
       }
 
       // If registration is successful, log the user in
-      const result = await signIn("credentials", {
+      const result = await signIn('credentials', {
         email,
         password,
         redirect: false,
-      });
+      })
 
       if (result?.error) {
-        setError("Failed to login after registration");
-        return;
+        setError('Failed to login after registration')
+        return
       }
 
-      router.push("/dashboard");
-      router.refresh();
+      router.push('/dashboard')
+      router.refresh()
     } catch (error) {
-      console.error(error);
-      setError("Something went wrong. Please try again.");
+      console.error(error)
+      setError('Something went wrong. Please try again.')
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   }
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl">Create an account</CardTitle>
@@ -125,11 +125,11 @@ export function SignupForm({
                 />
               </div>
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Creating account..." : "Create account"}
+                {isLoading ? 'Creating account...' : 'Create account'}
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">
-              Already have an account?{" "}
+              Already have an account?{' '}
               <a href="/login" className="underline underline-offset-4">
                 Login
               </a>
@@ -138,5 +138,5 @@ export function SignupForm({
         </CardContent>
       </Card>
     </div>
-  );
+  )
 }
