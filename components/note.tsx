@@ -44,7 +44,6 @@ export function Note({ noteId }: { noteId: string }) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notes'] })
       queryClient.invalidateQueries({ queryKey: ['note'] })
-
     },
   })
 

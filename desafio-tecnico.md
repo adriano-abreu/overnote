@@ -50,3 +50,6 @@ Até 4 dias corridos após o recebimento do desafio.
 - Documente decisões importantes;
 - Lembre-se:
   > "We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil." - Donald Knuth
+
+
+## 

@@ -11,7 +11,6 @@ export function CreateNote() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notes'] })
       queryClient.invalidateQueries({ queryKey: ['note'] })
-
     },
   })
 
